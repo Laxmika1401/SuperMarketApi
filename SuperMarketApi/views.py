@@ -17,8 +17,7 @@ def ItemView(request):
             serializer = ItemSerializer(category_qs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         elif 'subcategory' in request.GET:
-            subcategoryqs = SubCategory.objects.get(
-                title=request.GET['subcategory'])
+            subcategoryqs = SubCategory.objects.get(title=request.GET['subcategory'])
             sub_itemqs = Item.objects.filter(subcategory = subcategoryqs)
             serializer = ItemSerializer(sub_itemqs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
