@@ -19,7 +19,7 @@ def ItemView(request):
         elif 'subcategory' in request.GET:
             subcategoryqs = SubCategory.objects.get(
                 title=request.GET['subcategory'])
-            sub_itemqs = Item.objects.filter(subcategory=subcategoryqs)
+            sub_itemqs = Item.objects.filter(subcategory = subcategoryqs)
             serializer = ItemSerializer(sub_itemqs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         Itemqs = Item.objects.all()
