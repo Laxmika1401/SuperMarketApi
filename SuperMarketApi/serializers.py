@@ -11,3 +11,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = ('name','category','subcategory','amount')
         
+class ItemPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = "__all__"

@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Item, Category, SubCategory
-from .serializers import ItemSerializer
+from .serializers import ItemSerializer, ItemPostSerializer
 # Create your views here.
 
 
@@ -25,14 +25,14 @@ def ItemView(request):
         serializer = ItemSerializer(Itemqs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
-        serializer = ItemSerializer(data=request.data)
+        serializer = ItemPostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == "PATCH":
         update_itemqs = Item.objects.get(name=request.data['name'])
-        serializer = ItemSerializer(update_itemqs, request.data, partial=True)
+        serializer = ItemPostSerializer(update_itemqs, request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
